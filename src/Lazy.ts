@@ -20,6 +20,13 @@ class Lazy<T> {
     if (this.instance == null) this.instance = this.initializer();
     return this.instance;
   }
+
+  /**
+   * Gets a value that indicates whether a value has been created for this {@link Lazy} instance.
+   */
+  public get instantiated() {
+    return this.instance != null;
+  }
 }
 
 export { Lazy };
