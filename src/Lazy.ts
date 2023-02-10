@@ -1,7 +1,7 @@
 /**
  * Provides support for lazy initialization.
  */
-class Lazy<T> {
+class Lazy<T extends object> {
   private instance: T | null = null;
   private readonly initializer: () => T;
 
@@ -26,6 +26,15 @@ class Lazy<T> {
    */
   public get instantiated() {
     return this.instance !== null;
+  }
+
+  /**
+   * Creates and returns a string representation of the value property for this instance.
+   * @returns The result of calling the `toString()` method on the value property for this instance, if the value has been created (that is, if the instantiated property returns true). Otherwise, an error is thrown indicating that the value has not been created.
+   */
+  public toString(): string {
+    if (this.instance !== null) return this.instance.toString();
+    throw new Error("Instance has not been instantiated yet.");
   }
 }
 
