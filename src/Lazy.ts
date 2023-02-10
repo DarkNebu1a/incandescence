@@ -17,7 +17,7 @@ class Lazy<T> {
    * Gets the lazily initialized value of the current {@link Lazy} instance.
    */
   public get value(): T {
-    if (this.instance == null) this.instance = this.initializer();
+    if (this.instance === null) this.instance = this.initializer();
     return this.instance;
   }
 
@@ -25,7 +25,7 @@ class Lazy<T> {
    * Gets a value that indicates whether a value has been created for this {@link Lazy} instance.
    */
   public get instantiated() {
-    return this.instance != null;
+    return this.instance !== null;
   }
 }
 
