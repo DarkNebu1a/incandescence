@@ -34,7 +34,7 @@ class Lazy<T extends object> {
    */
   public toString(): string {
     if (this.instance !== null) return this.instance.toString();
-    throw new Error("Instance has not been instantiated yet.");
+    throw new Error("Value has not been instantiated yet.");
   }
 }
 
