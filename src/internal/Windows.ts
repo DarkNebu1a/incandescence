@@ -1,10 +1,17 @@
 import { execSync } from "node:child_process";
 import process from "node:process";
 import os from "node:os";
-import { ColorSystem } from "./ColorSystem";
-import { SystemSupport } from "./SystemSupport";
+import { ColorSystem, SystemSupport } from "./Detectors";
 
+type WindowsVersion = { major: number; build: number }
+
+/**
+ *
+ */
 class Windows {
+  /**
+   *
+   */
   public static detectANSISystem(): SystemSupport.Supported | SystemSupport.NotSupported {
     const version = Windows.parseReleaseVersion();
     if (version.major >= 10 && version.build >= 14393) return SystemSupport.Supported;
@@ -17,6 +24,10 @@ class Windows {
     return process.env["ANSICON"] ? SystemSupport.Supported : SystemSupport.NotSupported;
   }
 
+  /**
+   *
+   * @param ansi
+   */
   public static detectColorSystem(ansi: boolean): Exclude<ColorSystem, ColorSystem.Detect> {
     if (!ansi) return ColorSystem.EightBit;
 
@@ -26,7 +37,10 @@ class Windows {
     return ColorSystem.Standard;
   }
 
-  public static parseReleaseVersion(): { major: number; build: number } {
+  /**
+   *
+   */
+  public static parseReleaseVersion(): WindowsVersion {
     const osRelease = os.release().split(".");
     return {
       major: Number.parseInt(osRelease[0] ?? "", 10),

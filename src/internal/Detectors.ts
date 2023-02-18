@@ -1,7 +1,56 @@
-import * as process from "node:process";
-import { ColorSystem } from "./ColorSystem";
+import type { WriteStream } from "node:tty";
 import { Windows } from "./Windows";
 
+/**
+ * Represents a color system.
+ */
+const enum ColorSystem {
+  /**
+   * Try to detect the color system.
+   */
+  Detect = -1,
+  /**
+   * No colors.
+   */
+  NoColors = 0,
+
+  /**
+   * Standard, 4-bit mode.
+   */
+  Standard = 1,
+
+  /**
+   * 8-bit mode.
+   */
+  EightBit = 2,
+
+  /**
+   * 24-bit mode.
+   */
+  TrueColor = 3,
+}
+
+/**
+ * Represents whether a system is supported.
+ */
+const enum SystemSupport {
+  /**
+   * Try and detect the system.
+   */
+  Detect = -1,
+  /**
+   * System is supported.
+   */
+  Supported = 0,
+  /**
+   * System is not supported.
+   */
+  NotSupported = 1,
+}
+
+/**
+ *
+ */
 class ColorDetector {
   private static readonly DEFAULT: Exclude<ColorSystem, ColorSystem.Detect> = ColorSystem.NoColors;
   private static readonly TEAMCITY_VERSION_PATTERN: RegExp = /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/;
@@ -26,6 +75,10 @@ class ColorDetector {
     "DRONE",
   ];
 
+  /**
+   *
+   * @param ansi
+   */
   public static detect(ansi: boolean): Exclude<ColorSystem, ColorSystem.Detect> {
     if (!process.stdout.isTTY || process.env["NO_COLOR"]) return ColorSystem.NoColors;
 
@@ -82,4 +135,61 @@ class ColorDetector {
   }
 }
 
-export { ColorDetector };
+class ANSIDetector {
+  private static readonly TERMINAL_PATTERNS: Array<RegExp> = [
+    /^xterm/, // xterm, PuTTY, Mintty
+    /^rxvt/, // RXVT
+    /^eterm/, // Eterm
+    /^screen/, // GNU screen, tmux
+    /tmux/, // tmux
+    /^vt100/, // DEC VT series
+    /^vt102/, // DEC VT series
+    /^vt220/, // DEC VT series
+    /^vt320/, // DEC VT series
+    /ansi/, // ANSI
+    /scoansi/, // SCO ANSI
+    /cygwin/, // Cygwin, MinGW
+    /linux/, // Linux console
+    /konsole/, // Konsole
+    /bvterm/, // Bitvise SSH Client
+    /^st-256color/, // Suckless Simple Terminal, st
+  ];
+
+  /**
+   *
+   */
+  public static detect(): SystemSupport.Supported | SystemSupport.NotSupported {
+    if (!process.stdout.isTTY) return SystemSupport.NotSupported;
+    return process.platform === "win32" ? Windows.detectANSISystem() : ANSIDetector.detectFromTerminal();
+  }
+
+  private static detectFromTerminal(): SystemSupport.Supported | SystemSupport.NotSupported {
+    const terminal = process.env["TERM"];
+    if (!terminal) return SystemSupport.NotSupported;
+
+    return ANSIDetector.TERMINAL_PATTERNS.some((pattern: RegExp) => pattern.test(terminal))
+      ? SystemSupport.Supported
+      : SystemSupport.NotSupported;
+  }
+}
+
+
+/**
+ *
+ */
+class InteractionDetector {
+  /**
+   *
+   * @param stream
+   * @returns
+   */
+  public static detect(stream: WriteStream): SystemSupport.Supported | SystemSupport.NotSupported {
+    if (!stream.isTTY) return SystemSupport.NotSupported;
+    if (process.env["CI"]) return SystemSupport.NotSupported;
+    if (process.env["TERM"] === "dumb") return SystemSupport.NotSupported;
+
+    return SystemSupport.Supported;
+  }
+}
+
+export { ColorDetector, ANSIDetector, InteractionDetector, ColorSystem, SystemSupport };
