@@ -42,7 +42,7 @@
     "experimentalDecorators": true,
     "lib": ["ESNext"],
     "target": "ESNext",
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
   },
   "include": ["src/**/*.ts"]
 }
