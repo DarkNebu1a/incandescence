@@ -49,7 +49,7 @@ const enum SystemSupport {
 }
 
 /**
- *
+ * Utility for detecting color support in the terminal.
  */
 class ColorDetector {
   private static readonly DEFAULT: Exclude<ColorSystem, ColorSystem.Detect> = ColorSystem.NoColors;
@@ -76,8 +76,9 @@ class ColorDetector {
   ];
 
   /**
-   *
-   * @param ansi
+   * Detects what colors the os can display in the terminal.
+   * @param ansi Whether the terminal can display ANSI characters.
+   * @returns The highest supportable color system.
    */
   public static detect(ansi: boolean): Exclude<ColorSystem, ColorSystem.Detect> {
     if (!process.stdout.isTTY || process.env["NO_COLOR"]) return ColorSystem.NoColors;
@@ -135,6 +136,9 @@ class ColorDetector {
   }
 }
 
+/**
+ * Utility for detecting ANSI support in the terminal.
+ */
 class ANSIDetector {
   private static readonly TERMINAL_PATTERNS: Array<RegExp> = [
     /^xterm/, // xterm, PuTTY, Mintty
@@ -156,7 +160,8 @@ class ANSIDetector {
   ];
 
   /**
-   *
+   * Detects whether ANSI can be displayed in the terminal.
+   * @returns Whether ANSI is supported in the terminal.
    */
   public static detect(): SystemSupport.Supported | SystemSupport.NotSupported {
     if (!process.stdout.isTTY) return SystemSupport.NotSupported;
@@ -173,17 +178,16 @@ class ANSIDetector {
   }
 }
 
-
 /**
- *
+ * Utility for detecting interactivity support in the terminal.
  */
 class InteractionDetector {
   /**
-   *
-   * @param stream
-   * @returns
+   * Detects whether the terminal is interactive.
+   * @param stream The output stream. This defaults to {@link process.stdout}
+   * @returns Whether interactivity is supported in the terminal.
    */
-  public static detect(stream: WriteStream): SystemSupport.Supported | SystemSupport.NotSupported {
+  public static detect(stream: WriteStream = process.stdout): SystemSupport.Supported | SystemSupport.NotSupported {
     if (!stream.isTTY) return SystemSupport.NotSupported;
     if (process.env["CI"]) return SystemSupport.NotSupported;
     if (process.env["TERM"] === "dumb") return SystemSupport.NotSupported;
