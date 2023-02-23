@@ -13,7 +13,7 @@
     "format": "prettier --write src tests",
     "build": "tsup src --format cjs,esm --dts",
     "ci": "pnpm run lint && pnpm run test && pnpm run build",
-    "release": "pnpm run lint && pnpm run test && pnpm run build && changeset publish"
+    "release": "pnpm run ci && changeset publish"
   },
   "author": {
     "name": "Craftinators",

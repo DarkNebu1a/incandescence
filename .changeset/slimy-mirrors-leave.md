@@ -1,0 +1,5 @@
+---
+"incandescence": patch
+---
+
+Add .prettierignore

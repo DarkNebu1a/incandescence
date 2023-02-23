@@ -1,16 +1,3 @@
-## About
+![CI Workflow](https://github.com/craftinators/incandescence/actions/workflows/main.yml/badge.svg)
 
-Blah Blah Blah
-
-- Object-oriented
-- Performant
-
-## Installation
-
-**Node.js x.x.x or newer is required.**
-
-```sh-session
-npm install incandescence
-yarn add incandescence
-pnpm add incandescence
-```
+![Known Vulnerabilities](https://snyk.io/test/github/craftinators/incandescence/badge.svg)
