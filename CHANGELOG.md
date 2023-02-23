@@ -1,5 +1,12 @@
 # incandescence
 
+## 0.0.6
+
+### Patch Changes
+
+- f26d57e: Add .prettierignore
+- f26d57e: Renamed CI github action
+
 ## 0.0.5
 
 ### Patch Changes
