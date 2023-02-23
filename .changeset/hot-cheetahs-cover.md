@@ -1,5 +1,0 @@
----
-"incandescence": patch
----
-
-Removed eslint
