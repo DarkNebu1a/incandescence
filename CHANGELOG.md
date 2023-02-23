@@ -1,5 +1,11 @@
 # incandescence
 
+## 0.0.5
+
+### Patch Changes
+
+- 7a743e5: Removed eslint
+
 ## 0.0.4
 
 ### Patch Changes
