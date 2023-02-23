@@ -19,6 +19,7 @@
     "name": "Craftinators",
     "email": "craftinatorssx@gmail.com"
   },
+  "license": "MIT",
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
     "@types/node": "^18.11.18",
