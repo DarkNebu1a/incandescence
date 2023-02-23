@@ -18,5 +18,11 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Lint, Test, and Build
-        run: pnpm run ci
+      - name: Lint
+        run: pnpm run lint
+      - name: Test
+        run: pnpm run test
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+      - name: Build
+        run: pnpm run build
