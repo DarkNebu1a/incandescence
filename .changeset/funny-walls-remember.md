@@ -1,5 +1,0 @@
----
-"incandescence": patch
----
-
-Initial commit
