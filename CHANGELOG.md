@@ -1,5 +1,11 @@
 # incandescence
 
+## 0.0.7
+
+### Patch Changes
+
+- 36e0e21: Added codecov
+
 ## 0.0.6
 
 ### Patch Changes
