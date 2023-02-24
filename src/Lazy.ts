@@ -1,15 +1,18 @@
+type Nullable<T> = T | null;
+type Function<R> = () => R;
+
 /**
  * Provides support for lazy initialization.
  */
 class Lazy<T extends object> {
-  private instance: T | null = null;
-  private readonly initializer: () => T;
+  private instance: Nullable<T> = null;
+  private readonly initializer: Function<T>;
 
   /**
    * Initializes a new instance of the {@link Lazy} class. When lazy initialization occurs, the specified initialization function is used.
    * @param initializer The function that is invoked to produce the lazily initialized value when it is needed.
    */
-  public constructor(initializer: () => T) {
+  public constructor(initializer: Function<T>) {
     this.initializer = initializer;
   }
 
@@ -31,6 +34,7 @@ class Lazy<T extends object> {
   /**
    * Creates and returns a string representation of the value property for this instance.
    * @returns The result of calling the `toString()` method on the value property for this instance, if the value has been created (that is, if the instantiated property returns true). Otherwise, an error is thrown indicating that the value has not been created.
+   * @throws {Error} The Value property is null.
    */
   public toString(): string {
     if (this.instance !== null) return this.instance.toString();
