@@ -1,6 +1,6 @@
 {
   "name": "incandescence",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A typescript translation of the .NET library spectre.console",
   "private": false,
   "main": "dist/index.js",

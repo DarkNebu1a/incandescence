@@ -1,5 +1,11 @@
 # incandescence
 
+## 0.0.10
+
+### Patch Changes
+
+- c7d5535: Fixed release-package.yml
+
 ## 0.0.9
 
 ### Patch Changes
