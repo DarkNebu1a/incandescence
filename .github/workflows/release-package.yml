@@ -1,22 +1,22 @@
 name: Node.js Package
-
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v3
-    - uses: pnpm/action-setup@v2
-      with:
-        version: 7
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
-        cache: "pnpm"
-    - run: pnpm run lint
-    - run: pnpm test
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "pnpm"
+      - run: pnpm run lint
+      - run: pnpm test
 
   publish-gpr:
     needs: build
