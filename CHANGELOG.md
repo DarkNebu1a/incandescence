@@ -1,5 +1,11 @@
 # incandescence
 
+## 0.0.9
+
+### Patch Changes
+
+- 54e1ec9: fix release-package.yml
+
 ## 0.0.8
 
 ### Patch Changes
