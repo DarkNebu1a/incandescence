@@ -5,7 +5,10 @@ export default defineConfig({
     exclude: ["node_modules", "dist", ".idea", ".git"],
     passWithNoTests: true,
     coverage: {
-      reporter: ['text', 'json', 'html'],
+      all: true,
+      reporter: ["clover", "cobertura", "lcov", "text"],
+      include: ["src"],
     },
+    reporters: "basic",
   },
 });
