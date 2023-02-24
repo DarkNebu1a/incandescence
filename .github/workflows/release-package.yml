@@ -15,8 +15,12 @@ jobs:
         with:
           node-version: 16.x
           cache: "pnpm"
-      - run: pnpm run lint
-      - run: pnpm test
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm run lint
+      - name: Test
+        run: pnpm run test
 
   publish-gpr:
     needs: build
