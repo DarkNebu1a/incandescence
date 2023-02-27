@@ -1,7 +1,8 @@
 ## Incandescence
 
 ![npm](https://img.shields.io/npm/v/incandescence)
-![GitHub repo size](https://img.shields.io/github/repo-size/craftinators/incandescence)
+![downloads](https://img.shields.io/npm/dt/incandescence)
+![size](https://img.shields.io/github/repo-size/craftinators/incandescence)
 [![ci](https://github.com/Craftinators/incandescence/actions/workflows/ci.yml/badge.svg)](https://github.com/Craftinators/incandescence/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/Craftinators/incandescence/branch/main/graph/badge.svg?token=ONU2RB1HXL)](https://codecov.io/gh/Craftinators/incandescence)
 
