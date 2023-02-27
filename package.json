@@ -19,6 +19,14 @@
     "name": "Craftinators",
     "email": "craftinatorssx@gmail.com"
   },
+  "homepage": "https://github.com/Craftinators/incandescence#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Craftinators/incandescence.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Craftinators/incandescence/issues"
+  },
   "license": "MIT",
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
@@ -31,8 +39,5 @@
   },
   "engines": {
     "node": ">=16.0.0"
-  },
-  "publishConfig": {
-    "@craftinators:registry": "https://npm.pkg.github.com"
   }
 }
