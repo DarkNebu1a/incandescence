@@ -29,7 +29,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@changesets/cli": "^2.26.0",
     "@types/node": "^18.11.18",
     "@vitest/coverage-c8": "^0.28.5",
     "prettier": "^2.8.3",
