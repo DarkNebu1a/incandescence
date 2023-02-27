@@ -21,9 +21,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Lint
-        run: pnpm run lint
+        run: turbo lint
       - name: Test
-        run: pnpm run coverage
+        run: turbo coverage
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
