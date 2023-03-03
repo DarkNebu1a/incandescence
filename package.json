@@ -13,7 +13,7 @@
     "lint": "tsc",
     "format": "prettier --write src test",
     "build": "tsup src --format cjs,esm --dts",
-    "release": "turbo run lint && turbo run test && turbo run build && pnpm publish"
+    "release": "turbo run lint && turbo run test && turbo run build && pnpm publish -no-git-checks"
   },
   "author": {
     "name": "Craftinators",

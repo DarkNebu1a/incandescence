@@ -1,3 +1,4 @@
+import { Alignment, Alignable } from "./Alignment";
 import type { Markup } from "./Markup";
 
 /**
@@ -5,35 +6,6 @@ import type { Markup } from "./Markup";
  */
 type Optional<T> = T | undefined;
 
-/**
- *
- */
-enum Alignment {
-  /**
-   *
-   */
-  Left,
-
-  /**
-   *
-   */
-  Center,
-
-  /**
-   *
-   */
-  Right,
-}
-
-/**
- *
- */
-interface Alignable {
-  /**
-   *
-   */
-  alignment: Alignment;
-}
 /**
  * A horizontal line.
  */
@@ -115,4 +87,4 @@ class Rule implements Alignable {
   }
 }
 
-export { Rule, Alignment }
+export { Rule, Optional }
