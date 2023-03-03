@@ -4,7 +4,13 @@ import { Lazy } from "../src";
 describe("Lazy", () => {
   it("toString() should throw error", () => {
     const lazy = new Lazy<number[]>(() => []);
-    expect(() => lazy.toString()).toThrowError("Value has not been instantiated yet.");
+    expect(() => lazy.toString()).toThrow(ReferenceError);
+  });
+
+  it("toString() should throw error", () => {
+    const lazy = new Lazy(() => ["Hey!", "Yo"]);
+    lazy.value;
+    expect(lazy.toString()).toBe("Hey!,Yo");
   });
 
   it("value should have length 3", () => {

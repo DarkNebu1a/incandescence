@@ -1,18 +1,25 @@
+/**
+ * Represents a type that can be null
+ */
 type Nullable<T> = T | null;
-type Function<R> = () => R;
+
+/**
+ * Represents a function with zero parameters
+ */
+type Func<Result> = () => Result;
 
 /**
  * Provides support for lazy initialization.
  */
 class Lazy<T extends object> {
   private instance: Nullable<T> = null;
-  private readonly initializer: Function<T>;
+  private readonly initializer: Func<T>;
 
   /**
    * Initializes a new instance of the {@link Lazy} class. When lazy initialization occurs, the specified initialization function is used.
    * @param initializer The function that is invoked to produce the lazily initialized value when it is needed.
    */
-  public constructor(initializer: Function<T>) {
+  public constructor(initializer: Func<T>) {
     this.initializer = initializer;
   }
 
@@ -38,8 +45,8 @@ class Lazy<T extends object> {
    */
   public toString(): string {
     if (this.instance !== null) return this.instance.toString();
-    throw new Error("Value has not been instantiated yet.");
+    throw new ReferenceError("Value has not been instantiated yet.");
   }
 }
 
-export { Lazy };
+export { Lazy, Nullable, Func };
