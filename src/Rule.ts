@@ -1,10 +1,15 @@
 import { Alignment, Alignable } from "./Alignment";
 import type { Markup } from "./Markup";
+import { Border, BorderPart } from "./Border";
 
 /**
  *
  */
 type Optional<T> = T | undefined;
+
+function isDefined<T>(optional: Optional<T>): optional is T {
+  return optional !== undefined;
+}
 
 /**
  * A horizontal line.
@@ -19,6 +24,14 @@ class Rule implements Alignable {
    * The title alignment.
    */
   public alignment: Alignment;
+
+  /**
+   * The rule border.
+   */
+  public border: Border;
+
+  private static readonly TITLE_PADDING: number = 1;
+  private static readonly EDGE_WIDTH: number = 2;
 
   /**
    * Initializes a new instance of the {@link Rule} class.
@@ -37,6 +50,7 @@ class Rule implements Alignable {
   public constructor(title?: Markup) {
     this.title = title;
     this.alignment = Alignment.Left;
+    this.border = Border.Square;
   }
 
   /**
@@ -84,6 +98,78 @@ class Rule implements Alignable {
   public setAlignment(alignment: Alignment): Rule {
     this.alignment = alignment;
     return this;
+  }
+
+  /**
+   * Sets the border of the rule to the specified border.
+   * @param border The rule border.
+   * @returns The current instance.
+   */
+  public setBorder(border: Border): Rule {
+    this.border = border;
+    return this;
+  }
+
+  public render(maxWidth: number): string {
+    const additionalWidth = 2 * Rule.EDGE_WIDTH + 2 * Rule.TITLE_PADDING;
+
+    if (!isDefined(this.title) || maxWidth <= additionalWidth) {
+      return this.GetLineWithoutTitle(maxWidth);
+    }
+
+    // Get the title and make sure it fits.
+    // const title = GetTitleSegments(options, Title, maxWidth - additionalWidth);
+    if (this.title.length > maxWidth - additionalWidth) {
+      // Truncate the title
+      //  = Segment.TruncateWithEllipsis(title, maxWidth - additionalWidth);
+      if (this.title.length === 0) {
+        // We couldn't fit the title at all.
+        return this.GetLineWithoutTitle(maxWidth);
+      }
+    }
+
+    const [left, right] = this.GetLineSegments(maxWidth, this.title.text);
+
+    return left + this.title.text + right + "\n";
+  }
+
+  private GetLineWithoutTitle(width: number) {
+    const text = this.border.getPart(BorderPart.Top).repeat(width);
+    return text + "\n";
+  }
+
+  private GetLineSegments(width: number, title: string): [string, string] {
+    const titleLength = title.length;
+
+    const borderPart = this.border.getPart(BorderPart.Top);
+
+    switch (this.alignment) {
+      case Alignment.Left: {
+        const left = borderPart.repeat(Rule.EDGE_WIDTH) + " ".repeat(Rule.TITLE_PADDING);
+
+        const rightLength = width - titleLength - left.length - Rule.TITLE_PADDING;
+        const right = " ".repeat(Rule.TITLE_PADDING) + borderPart.repeat(rightLength);
+
+        return [left, right];
+      }
+      case Alignment.Center: {
+        const leftLength = (width - titleLength) / 2 - Rule.TITLE_PADDING;
+        const left = borderPart.repeat(leftLength) + " ".repeat(Rule.TITLE_PADDING);
+
+        const rightLength = width - titleLength - left.length - Rule.TITLE_PADDING;
+        const right = " ".repeat(Rule.TITLE_PADDING) + borderPart.repeat(rightLength);
+
+        return [left, right];
+      }
+      case Alignment.Right: {
+        const right = " ".repeat(Rule.TITLE_PADDING) + borderPart.repeat(Rule.EDGE_WIDTH);
+
+        const leftLength = width - titleLength - right.length - Rule.TITLE_PADDING;
+        const left = borderPart.repeat(leftLength) + " ".repeat(Rule.TITLE_PADDING);
+
+        return [left, right];
+      }
+    }
   }
 }
 

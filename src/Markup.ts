@@ -22,6 +22,10 @@ class Markup {
   public static Text(text: string): Markup {
     return new Markup(text);
   }
+
+  public get length() {
+    return this.text.length;
+  }
 }
 
 export { Markup }
