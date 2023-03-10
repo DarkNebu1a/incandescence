@@ -1,4 +1,4 @@
 *
 !src
-!test
+!__test__
 !vitest.config.ts

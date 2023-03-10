@@ -1,11 +1,9 @@
-name: Publish package to NPM
+name: CI
 
-on:
-  release:
-    types: [released]
+on: [push, pull_request]
 
 jobs:
-  publish-npm:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -18,18 +16,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Lint
         run: pnpm run lint
       - name: Test
-        run: pnpm run test
+        run: pnpm run __test__
       - name: Build
         run: pnpm run build
-
-      - name: Publish
-        run: pnpm run release
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
