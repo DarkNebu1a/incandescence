@@ -11,9 +11,9 @@
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "lint": "tsc",
-    "format": "prettier --write src test",
+    "format": "prettier --write src __test__",
     "build": "tsup src --format cjs,esm --dts",
-    "release": "turbo run lint && turbo run test && turbo run build && pnpm publish -no-git-checks"
+    "release": "turbo run lint && turbo run __test__ && turbo run build && pnpm publish -no-git-checks"
   },
   "author": {
     "name": "Craftinators",

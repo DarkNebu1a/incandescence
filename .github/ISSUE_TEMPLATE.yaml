@@ -1,0 +1,29 @@
+name: Bug Report
+description: Report incorrect or unexpected behavior
+title: "[Bug]: "
+labels: ["type: bug"]
+assignees: ["Craftinators"]
+
+body:
+  - type: markdown
+    attributes:
+      value: "Report incorrect or unexpected behavior of incandescence. If this doesn't look right, [choose a different type](https://github.com/Craftinators/incandescence/issues/new/choose)."
+  - type: input
+    attributes:
+      label: Package version
+      description: "Which version of incandescence are you using? Run `npm list incandescence` in your project directory and paste the output."
+      placeholder: "We don't support version 0.0.10 or earlier of incandescence"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Node.js version
+      description: "Which version of Node.js are you using? Run `node --version` in your project directory and paste the output."
+      placeholder: "Node.js version 16.0+ is required for incandescence version 0.0.10+"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Typescript version
+      description: "If you are using TypeScript, please include its version. Run `npm list typescript` in your project directory and paste the output."
+      placeholder: "Node.js version 16.0+ is required for incandescence version 0.0.10+"
