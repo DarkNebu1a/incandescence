@@ -1,24 +1,15 @@
-import { Alignment, Alignable } from "./Alignment";
-import type { Markup } from "./Markup";
-import { Border, BorderPart } from "./Border";
-
-/**
- *
- */
-type Optional<T> = T | undefined;
-
-function isDefined<T>(optional: Optional<T>): optional is T {
-  return optional !== undefined;
-}
+import { Alignment, type IAlignable } from "../alignment";
+import type { Markup } from "./markup";
+import { Border, BorderPart } from "../border";
 
 /**
  * A horizontal line.
  */
-class Rule implements Alignable {
+export class Rule implements IAlignable {
   /**
    * The title markup text.
    */
-  public title: Optional<Markup>;
+  public title: Markup | undefined;
 
   /**
    * The title alignment.
@@ -30,7 +21,13 @@ class Rule implements Alignable {
    */
   public border: Border;
 
+  /**
+   * @internal
+   */
   private static readonly TITLE_PADDING: number = 1;
+  /**
+   * @internal
+   */
   private static readonly EDGE_WIDTH: number = 2;
 
   /**
@@ -47,7 +44,7 @@ class Rule implements Alignable {
    * @see Markup
    * @see Alignment
    */
-  public constructor(title?: Markup) {
+  public constructor(title: Markup) {
     this.title = title;
     this.alignment = Alignment.Left;
     this.border = Border.Square;
@@ -113,7 +110,7 @@ class Rule implements Alignable {
   public render(maxWidth: number): string {
     const additionalWidth = 2 * Rule.EDGE_WIDTH + 2 * Rule.TITLE_PADDING;
 
-    if (!isDefined(this.title) || maxWidth <= additionalWidth) {
+    if (this.title === undefined || maxWidth <= additionalWidth) {
       return this.GetLineWithoutTitle(maxWidth);
     }
 
@@ -172,5 +169,3 @@ class Rule implements Alignable {
     }
   }
 }
-
-export { Rule, Optional }

@@ -1,7 +1,7 @@
 /**
  *
  */
-enum Alignment {
+export enum Alignment {
   /**
    *
    */
@@ -21,11 +21,9 @@ enum Alignment {
 /**
  *
  */
-interface Alignable {
+export interface IAlignable {
   /**
    *
    */
   alignment: Alignment;
 }
-
-export { Alignment, Alignable }
