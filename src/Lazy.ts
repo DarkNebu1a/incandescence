@@ -1,18 +1,9 @@
 /**
- * Represents a type that can be null
- */
-type Nullable<T> = T | null;
-
-/**
- * Represents a function with zero parameters
- */
-type Func<Result> = () => Result;
-
-/**
  * Provides support for lazy initialization.
+ * @typeParam T The type of the initialized value.
  */
-class Lazy<T extends object> {
-  private instance: Nullable<T> = null;
+export class Lazy<T extends object> {
+  private instance: T | null = null;
   private readonly initializer: Func<T>;
 
   /**
@@ -41,7 +32,7 @@ class Lazy<T extends object> {
   /**
    * Creates and returns a string representation of the value property for this instance.
    * @returns The result of calling the `toString()` method on the value property for this instance, if the value has been created (that is, if the instantiated property returns true). Otherwise, an error is thrown indicating that the value has not been created.
-   * @throws {Error} The Value property is null.
+   * @throws {ReferenceError} The Value property is null.
    */
   public toString(): string {
     if (this.instance !== null) return this.instance.toString();
@@ -49,4 +40,8 @@ class Lazy<T extends object> {
   }
 }
 
-export { Lazy, Nullable, Func };
+/**
+ * Represents a function with zero parameters
+ * @internal
+ */
+export type Func<Result> = () => Result;
