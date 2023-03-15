@@ -21,8 +21,8 @@ body:
         1. Do whatever
         2. Observe behavior
         3. Read error logs
-      validations:
-        required: true
+    validations:
+      required: true
   - type: textarea
     id: codesample
     attributes:
