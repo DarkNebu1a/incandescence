@@ -3,7 +3,7 @@
  */
 class Markup {
   /**
-   *
+   * 
    */
   public text: string
 
